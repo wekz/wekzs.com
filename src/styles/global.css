@@ -578,6 +578,7 @@ img {
 
 /* ── Command palette (⌘K) — in global.css so view transitions never drop it ── */
 #cmd-overlay {
+
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.3);
@@ -596,10 +597,10 @@ img {
 #cmd-palette {
   width: 100%;
   max-width: 580px;
-  background: rgba(22, 21, 28, 0.6);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 17, 23, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
   overflow: hidden;
   box-shadow:
@@ -609,7 +610,7 @@ img {
   transition: transform 0.15s ease;
 }
 [data-theme="light"] #cmd-palette {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.97);
   border-color: rgba(0, 0, 0, 0.08);
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.18),
