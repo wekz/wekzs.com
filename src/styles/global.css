@@ -540,6 +540,117 @@ img {
 }
 .volchart .vc-tooltip.show { opacity: 1; }
 
+/* ── Dual-area training chart ────────────────────────────── */
+/* Sits directly on the page background (no card) for a clean black look. */
+.training-card { margin: 1.5rem 0 0; }
+.tchart {
+  position: relative;
+  margin: 0;
+}
+.tchart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.tchart .tc-xlabel {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  fill: var(--text-faint);
+}
+.tchart .tc-crosshair {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+[data-theme="light"] .tchart .tc-crosshair { stroke: rgba(0, 0, 0, 0.15); }
+.tchart .tc-dot { filter: drop-shadow(0 0 4px currentColor); }
+.tchart .tc-hit { fill: transparent; cursor: crosshair; }
+
+/* Crosshair, dots and tooltip are hidden until a point is hovered. */
+.tchart .tc-crosshair,
+.tchart .tc-dot,
+.tchart .tc-tooltip {
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.tchart.tc-active .tc-crosshair,
+.tchart.tc-active .tc-dot,
+.tchart.tc-active .tc-tooltip { opacity: 1; }
+
+.tchart .tc-tooltip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(14, 14, 20, 0.96);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 160px;
+}
+[data-theme="light"] .tchart .tc-tooltip {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+.tchart .tc-tip-date {
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--fg);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+}
+.tchart .tc-tip-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.1rem 0;
+}
+.tchart .tc-tip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.tchart .tc-tip-key {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  flex: 1;
+}
+.tchart .tc-tip-vol,
+.tchart .tc-tip-cnt {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+/* ── Legend below chart ──────────────────────────────────── */
+.tc-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.85rem;
+}
+.tc-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+}
+.tc-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 @media (max-width: 600px) {
   .page-about .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .page-about .about-photo { width: 100%; height: auto; aspect-ratio: 1; order: -1; }

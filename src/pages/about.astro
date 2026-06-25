@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import TrainingVolumeChart from '@/components/TrainingVolumeChart.astro';
+import TrainingChart from '@/components/TrainingChart.astro';
 import photo from '@/assets/veljko.JPG';
 ---
 
@@ -59,17 +59,19 @@ import photo from '@/assets/veljko.JPG';
       </a>
     </div>
 
-    <h2 class="training-heading">Training</h2>
+    <h2 class="training-heading">The Other Chart</h2>
     <p class="bio-sub">
       Since 2025 I've been training seriously. Before that I was mostly counting bugs.
       Turns out reps work differently. Still figuring out the whole process but I'm in it.
     </p>
     <p class="bio-sub">
-      I keep this chart mostly for myself, as motivation to not let the numbers drop. But
-      maybe it's useful for someone else too. At least it's something different to look at
-      instead of yet another Bitcoin chart.
+      I've been staring at charts since I started trading Bitcoin back in 2019. I genuinely
+      love reading them, and I love building them even more. This one is just a different
+      flavor. Instead of watching candles turn red, I get to watch the volume go up. Same
+      obsession, healthier outcome. I keep it mostly for myself, as motivation to not let
+      the numbers drop, but maybe it's useful for someone else too.
     </p>
-    <TrainingVolumeChart />
+    <TrainingChart />
   </section>
 </Layout>
 
