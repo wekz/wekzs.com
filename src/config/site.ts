@@ -8,7 +8,7 @@ export const SITE = {
   description: 'Obsessed with how things work and why they break.',
 
   // Social links
-  github:      'https://github.com/veljavex',
+  github:      'https://github.com/wekz',
   githubRepo:  'https://github.com/wekz/wekzs.com',
   linkedin:    'https://www.linkedin.com/in/veljkoaleksic/',
   hevy:        'https://hevy.com/user/veljavex',
