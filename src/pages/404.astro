@@ -1,0 +1,27 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="404 — Not Found" description="This page could not be found.">
+  <section class="page-404">
+    <h1 class="gradient-title g-pink">404</h1>
+    <p class="error-lead">This page failed the test.</p>
+    <p class="error-sub">
+      The link is broken, the page moved, or it never existed. Either way, I'll file it as a bug.
+    </p>
+    <div class="error-actions">
+      <a href="/" class="error-home">← Back home</a>
+      <button class="error-cmd" id="open-cmd-404" aria-label="Open command palette">
+        or press <span class="home-cmd-keys"><kbd class="cmd-mod-key"><span class="mod-mac">⌘</span><span class="mod-other">Ctrl</span></kbd><kbd>K</kbd></span> to search
+      </button>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('open-cmd-404')?.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('open-command-palette'));
+    });
+  });
+</script>

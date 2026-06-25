@@ -12,9 +12,10 @@ interface Props {
   title: string;
   description?: string;
   wide?: boolean;
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description = SITE.description, wide = false } = Astro.props;
+const { title, description = SITE.description, wide = false, jsonLd } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -44,6 +45,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:image" content={new URL('/og.jpg', Astro.site)} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
+    )}
     <ClientRouter />
     <!-- is:inline = runs before first paint, prevents flash of wrong theme/key -->
     <script is:inline>

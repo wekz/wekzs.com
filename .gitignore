@@ -6,4 +6,3 @@ node_modules/
 .DS_Store
 .astro/
 .hevy-cache.json
-public/cv.pdf

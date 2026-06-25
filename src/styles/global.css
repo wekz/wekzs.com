@@ -382,6 +382,7 @@ img {
 .page-blog ::selection  { background: var(--dracula-pink);   color: #000; -webkit-text-fill-color: #000; }
 .page-cv ::selection    { background: var(--dracula-yellow); color: #000; -webkit-text-fill-color: #000; }
 .page-uses ::selection  { background: var(--dracula-orange); color: #000; -webkit-text-fill-color: #000; }
+.page-404 ::selection   { background: var(--dracula-pink);   color: #000; -webkit-text-fill-color: #000; }
 
 /* Instant page swaps (no cross-fade) — keeps SPA routing without a long overlay. */
 ::view-transition-old(root),
@@ -791,7 +792,33 @@ img {
 .post-back { font-size: 0.875rem; color: var(--text-muted); transition: color 0.15s; }
 .post-back:hover { color: var(--dracula-pink); }
 
+/* ── 404 ─────────────────────────────────────────────────── */
+.page-404 {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.page-404 .gradient-title { font-size: clamp(6rem, 22vw, 12rem); line-height: 0.95; margin-bottom: 1.5rem; }
+.page-404 .error-lead { font-size: 1.6rem; color: var(--text); font-weight: 700; margin-bottom: 0.75rem; }
+.page-404 .error-sub { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; max-width: 480px; margin-bottom: 2.5rem; }
+.page-404 .error-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.page-404 .error-home { font-size: 0.95rem; color: var(--text); font-weight: 500; transition: color 0.15s; }
+.page-404 .error-home:hover { color: var(--dracula-pink); }
+.page-404 .error-cmd {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: var(--font-sans); font-size: 0.875rem; color: var(--text-faint);
+  display: inline-flex; align-items: center; gap: 0.35rem;
+}
+.page-404 .error-cmd:hover { color: var(--text-muted); }
+
 /* ── Command palette (⌘K) — in global.css so view transitions never drop it ── */
+/* Lock background scroll while the palette is open; pad for the removed
+   scrollbar so page content doesn't shift (no-op on overlay scrollbars). */
+html.cmd-locked { overflow: hidden; }
+html.cmd-locked body { padding-right: var(--cmd-sbw, 0px); }
+
 #cmd-overlay {
 
   position: fixed;

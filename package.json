@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.0",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/inter": "^5.0.0",
     "@fontsource/jetbrains-mono": "^5.0.0",
     "@vercel/analytics": "^2.0.1",

@@ -59,12 +59,24 @@
   // Last real cursor position, to tell genuine mouse moves from scroll-emitted ones
   let lastMouseX = -1, lastMouseY = -1;
 
+  // Lock background scroll while the palette is open. Compensate for the
+  // scrollbar width so the page content doesn't jump when it disappears.
+  function lockScroll() {
+    const sbw = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--cmd-sbw', `${sbw}px`);
+    document.documentElement.classList.add('cmd-locked');
+  }
+  function unlockScroll() {
+    document.documentElement.classList.remove('cmd-locked');
+  }
+
   function open() {
     const overlay = getOverlay();
     const input = getInput();
     if (!overlay || !input) return;
     isOpen = true;
     keyboardNav = false;
+    lockScroll();
     overlay.setAttribute('aria-hidden', 'false');
     overlay.classList.add('visible');
     input.value = '';
@@ -78,6 +90,7 @@
   function close() {
     const overlay = getOverlay();
     isOpen = false;
+    unlockScroll();
     overlay?.setAttribute('aria-hidden', 'true');
     overlay?.classList.remove('visible');
     // Drop focus from the search input so global g-shortcuts work afterwards
@@ -109,7 +122,12 @@
     activeIndex = 0;
 
     if (filtered.length === 0) {
-      list.innerHTML = `<div class="cmd-empty">No results for "${query}"</div>`;
+      // Build with textContent (not innerHTML) so the user's query can never
+      // be interpreted as HTML — closes a self-XSS injection point.
+      const empty = document.createElement('div');
+      empty.className = 'cmd-empty';
+      empty.textContent = `No results for "${query}"`;
+      list.replaceChildren(empty);
       return;
     }
 
@@ -256,6 +274,7 @@
   // ── Per-page bindings: rebind to fresh palette nodes after each navigation ──
   function bindPaletteNodes() {
     isOpen = false;
+    unlockScroll(); // defensive: never leave the page locked after a navigation
     const input = getInput();
     const overlay = getOverlay();
     // dataset guard prevents double-binding if the same node persists
