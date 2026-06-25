@@ -1,0 +1,83 @@
+---
+// Root layout — wraps every page. Nav, Footer, and CommandPalette live here
+// so they persist across View Transitions without re-mounting.
+import { ClientRouter } from 'astro:transitions';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import CommandPalette from '@/components/CommandPalette.astro';
+import { SITE } from '@/config/site';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  wide?: boolean;
+}
+
+const { title, description = SITE.description, wide = false } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph (Discord, Slack, LinkedIn, iMessage, Facebook) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/og.svg', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Veljko Aleksić" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og.svg', Astro.site)} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <ClientRouter />
+    <!-- is:inline = runs before first paint, prevents flash of wrong theme -->
+    <script is:inline>
+      const applyTheme = () => {
+        const t = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      };
+      applyTheme();
+      // astro:after-swap fires after each View Transition — re-apply theme
+      // because the new page's <html> element replaces the old one
+      document.addEventListener('astro:after-swap', applyTheme);
+    </script>
+  </head>
+  <body>
+    <CommandPalette transition:persist />
+    <Nav />
+    <main class={wide ? 'wide' : 'contained'}>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main.contained {
+    flex: 1;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 24px;
+  }
+
+  main.wide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+</style>

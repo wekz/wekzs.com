@@ -1,0 +1,182 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const links = [
+  { href: '/about', label: 'About' },
+  { href: '/work', label: 'Work' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/uses', label: 'Uses' },
+];
+
+const current = Astro.url.pathname;
+---
+
+<nav>
+  <a href="/" class="logo" aria-label="Home">W</a>
+
+  <ul id="nav-list">
+    <span class="nav-highlight" aria-hidden="true"></span>
+    {links.map(link => (
+      <li>
+        <a
+          href={link.href}
+          class={current === link.href || current.startsWith(link.href) ? 'active' : ''}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="nav-right">
+    <ThemeToggle />
+    <button id="cmd-trigger" aria-label="Open command palette" title="Open command palette (⌘K)">
+      ⌘
+    </button>
+  </div>
+</nav>
+
+<script>
+  function initNav() {
+    const list = document.getElementById('nav-list');
+    const highlight = list?.querySelector('.nav-highlight') as HTMLElement | null;
+    const anchors = list?.querySelectorAll('a');
+    const activeAnchor = list?.querySelector('a.active') as HTMLElement | null;
+
+    function moveHighlight(el: HTMLElement, animate = true) {
+      if (!highlight) return;
+      if (!animate) highlight.style.transition = 'none';
+      // Copy the anchor's exact box so the pill always overlays it precisely
+      highlight.style.width = `${el.offsetWidth}px`;
+      highlight.style.height = `${el.offsetHeight}px`;
+      highlight.style.left = `${el.offsetLeft}px`;
+      highlight.style.top = `${el.offsetTop}px`;
+      highlight.style.opacity = '1';
+      if (!animate) {
+        void highlight.offsetWidth; // commit position instantly
+        highlight.style.transition = '';
+      }
+    }
+
+    // Rest position = the active page's item, placed instantly (no slide-in)
+    if (activeAnchor) moveHighlight(activeAnchor, false);
+
+    anchors?.forEach(a => {
+      a.addEventListener('mouseenter', () => moveHighlight(a as HTMLElement));
+    });
+
+    list?.addEventListener('mouseleave', () => {
+      if (activeAnchor) moveHighlight(activeAnchor);
+      else if (highlight) highlight.style.opacity = '0';
+    });
+  }
+
+  document.addEventListener('astro:page-load', initNav);
+</script>
+
+<style>
+  nav a,
+  nav a *,
+  .logo {
+    cursor: pointer !important;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 1.5rem 3rem;
+  }
+
+  .logo {
+    justify-self: start;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  ul {
+    position: relative;
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .nav-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    border-radius: 6px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    box-sizing: border-box;
+    opacity: 0;
+    transition: left 0.2s ease, width 0.2s ease, opacity 0.15s ease;
+    pointer-events: none;
+    cursor: pointer;
+  }
+
+  li a {
+    position: relative;
+    z-index: 2;
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: color 0.15s;
+  }
+
+  li a:hover,
+  li a.active {
+    color: var(--accent);
+  }
+
+  li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 1.5px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: end;
+  }
+
+  #cmd-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    padding: 4px 6px;
+    border-radius: 4px;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+
+  #cmd-trigger:hover {
+    color: var(--accent);
+  }
+</style>

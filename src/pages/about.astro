@@ -1,0 +1,73 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import TrainingVolumeChart from '@/components/TrainingVolumeChart.astro';
+import photo from '@/assets/veljko.JPG';
+---
+
+<Layout title="About — wekzs" description="QA Automation Engineer with 7+ years of experience.">
+  <section class="page-about">
+    <h1 class="gradient-title g-cyan">Test. Break. Repeat.</h1>
+
+    <div class="about-grid">
+      <div class="bio">
+        <p>
+          <strong>Hey, I'm Veljko.</strong> Born and raised in Serbia, grew up in Belgrade.
+          The moment I first touched a computer I kind of never looked back. Technology just
+          clicked for me in a way not much else did.
+        </p>
+        <p>
+          I'm into a lot of things. Design catches my eye constantly, I game when I get the
+          chance, and I genuinely enjoy digging into other people's code just to see how they
+          solved things. Gaming is actually what pulled me toward testing in the first place.
+          Once you notice one bug you start seeing them everywhere.
+        </p>
+        <p>
+          Open source stuff fascinates me. I love that someone somewhere just decides to build
+          something and shares it with the world. Outside of tech I watch a lot of movies, probably
+          too many.
+        </p>
+      </div>
+
+      <Image
+        src={photo}
+        alt="Veljko Aleksić"
+        width={640}
+        height={640}
+        class="about-photo"
+      />
+    </div>
+
+    <h2>Bio</h2>
+    <p class="bio-sub">The short version, if you need one.</p>
+
+    <blockquote class="bio-quote" id="bio-text">
+      Veljko Aleksić is a QA Engineer from Belgrade. Seven years of breaking software on purpose,
+      from accessibility testing to leading teams to building automation from scratch. Currently
+      at ECD.rs working on a crypto platform. Loves clean test suites almost as much as dark mode.
+    </blockquote>
+
+    <div class="bio-actions">
+      <a href="/cv" class="bio-cv-btn">
+        <span class="bio-cv-icons">
+          <svg class="bio-cv-icon-file" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+          <svg class="bio-cv-icon-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </span>
+        View CV
+      </a>
+    </div>
+
+    <h2 class="training-heading">Training</h2>
+    <p class="bio-sub">
+      Since 2025 I've been training seriously. Before that I was mostly counting bugs.
+      Turns out reps work differently. Still figuring out the whole process but I'm in it.
+    </p>
+    <p class="bio-sub">
+      I keep this chart mostly for myself, as motivation to not let the numbers drop. But
+      maybe it's useful for someone else too. At least it's something different to look at
+      instead of yet another Bitcoin chart.
+    </p>
+    <TrainingVolumeChart />
+  </section>
+</Layout>
+

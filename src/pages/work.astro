@@ -1,0 +1,94 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const experience = [
+  {
+    company: 'ECD.rs',
+    companyUrl: 'http://ecd.rs/',
+    role: 'Quality Assurance Engineer',
+    period: 'Dec 2025 — Present',
+    description: 'Building a Playwright (TypeScript) automation framework from scratch for a crypto trading platform. Covers E2E, API, database, security and load testing, all wired into GitLab CI. Working closely with devs and product to shift quality left from day one.',
+    tags: ['Playwright', 'TypeScript', 'GitLab CI', 'Burp Suite', 'SQL', 'Load Testing'],
+  },
+  {
+    company: 'HolyCode',
+    companyUrl: 'https://www.holycode.com/',
+    team: 'Mindnow',
+    teamUrl: 'https://mindnow.io/',
+    role: 'QA Lead',
+    period: 'Aug 2023 — Dec 2025',
+    description: 'Owned QA strategy across multiple projects and led a team of 5 engineers. Cut critical production defects by 30%, integrated automated testing into CI/CD, and introduced security and load testing as standard practice.',
+    tags: ['QA Strategy', 'Team Lead', 'CI/CD', 'Burp Suite', 'REST API', 'Load Testing'],
+  },
+  {
+    company: 'HolyCode',
+    companyUrl: 'https://www.holycode.com/',
+    team: 'Mindnow',
+    teamUrl: 'https://mindnow.io/',
+    role: 'Senior QA Engineer',
+    period: 'Mar 2022 — Aug 2023',
+    description: 'Designed test cases and scenarios from business requirements and technical specs. Tracked defects through the full lifecycle, participated in sprint planning, and kept quality tight across Agile releases.',
+    tags: ['Test Design', 'Agile', 'Defect Management', 'REST API', 'Regression Testing'],
+  },
+  {
+    company: 'Inovatec Systems',
+    companyUrl: 'https://www.inovatec.com/',
+    role: 'Quality Assurance Analyst',
+    period: 'Mar 2021 — Mar 2022',
+    description: 'Managed the full defect lifecycle in a loan origination system (LOS). Validated data integrity daily with MySQL, ran API tests in Postman, and reviewed automation integration tests inside a Jenkins CI environment.',
+    tags: ['MySQL', 'Postman', 'Jenkins', 'Database Testing', 'Agile'],
+  },
+  {
+    company: 'UsableNet',
+    companyUrl: 'https://usablenet.com/',
+    team: 'Rhea Software',
+    role: 'QA Software Tester',
+    period: 'Apr 2019 — Mar 2021',
+    description: 'Black-box tested web and mobile across e-commerce, banking, airlines, insurance and healthcare clients. Built and maintained test scenarios in the AQA platform, used Chrome DevTools and Charles proxy for web analytics testing, tracked everything in JIRA.',
+    tags: ['Manual QA', 'JIRA', 'Charles Proxy', 'AQA', 'TestLodge', 'Web Analytics'],
+  },
+];
+---
+
+<Layout title="Work — wekzs" description="7+ years of QA experience, roles, impact, and tools.">
+  <section class="page-work">
+    <h1 class="gradient-title g-purple">Plan. Automate. Ship.</h1>
+
+    <p class="work-intro">
+      Started clicking buttons for accessibility. Wrote my first test script and never looked back.
+      Somewhere along the way picked up automation, led a team, and ended up doing security testing
+      on a crypto platform. Classic career arc.
+    </p>
+
+    <ul class="timeline">
+      {experience.map(job => (
+        <li>
+          <div class="meta">
+            <span class="period">{job.period}</span>
+          </div>
+          <div class="content">
+            <div class="header">
+              <strong class="role">{job.role}</strong>
+              <span class="company">
+                <a href={job.companyUrl} target="_blank" rel="noopener">{job.company}</a>
+                {job.team && (
+                  <>
+                    {' · '}
+                    {job.teamUrl
+                      ? <a href={job.teamUrl} target="_blank" rel="noopener">{job.team}</a>
+                      : <span>{job.team}</span>
+                    }
+                  </>
+                )}
+              </span>
+            </div>
+            <p>{job.description}</p>
+            <div class="tags">
+              {job.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>

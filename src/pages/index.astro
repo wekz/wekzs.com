@@ -1,0 +1,26 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Veljko Aleksić — QA Automation Engineer" wide>
+  <section class="home-hero page-home">
+    <div class="home-content">
+      <h1>Veljko Aleksić</h1>
+      <p class="home-role">QA Engineer at <a href="/work" class="home-role-link">ecd.rs</a></p>
+      <p class="home-desc">Obsessed with how things work and why they break.</p>
+      <button class="home-cmd-hint" id="open-cmd" aria-label="Open command palette">
+        Press <kbd>⌘</kbd><kbd>K</kbd> to start <span class="arrow">→</span>
+      </button>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('open-cmd')?.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('open-command-palette'));
+    });
+
+  });
+</script>
+
