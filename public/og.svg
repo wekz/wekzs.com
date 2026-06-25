@@ -1,24 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#0d0d0d"/>
-
-  <!-- subtle border -->
   <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#222" stroke-width="2"/>
 
-  <!-- W monogram -->
-  <text x="96" y="200" font-family="Inter, system-ui, sans-serif" font-size="120" font-weight="800" fill="#ffffff" opacity="0.08">W</text>
-
-  <!-- accent line -->
-  <rect x="96" y="260" width="56" height="3" fill="#ffffff" rx="2"/>
-
-  <!-- name -->
-  <text x="96" y="340" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="700" fill="#ffffff" letter-spacing="-2">Veljko Aleksić</text>
-
-  <!-- role -->
-  <text x="96" y="410" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="400" fill="#888888">QA Automation Engineer</text>
-
-  <!-- domain -->
-  <text x="96" y="530" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="400" fill="#555555">wekzs.com</text>
-
-  <!-- right side decoration -->
-  <text x="1100" y="580" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="500" fill="#333333" text-anchor="end">Test. Break. Repeat.</text>
+  <!-- Centered content -->
+  <text x="600" y="240" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="700" fill="#ffffff" letter-spacing="-2" text-anchor="middle">Veljko Aleksić</text>
+  <text x="600" y="320" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="400" fill="#888888" text-anchor="middle">QA Engineer</text>
+  <rect x="520" y="350" width="160" height="2" fill="#333333" rx="1"/>
+  <text x="600" y="410" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="400" fill="#555555" text-anchor="middle">Obsessed with how things work and why they break.</text>
+  <text x="600" y="530" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="400" fill="#444444" text-anchor="middle">wekzs-com.vercel.app</text>
 </svg>
