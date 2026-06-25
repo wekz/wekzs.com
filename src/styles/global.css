@@ -216,29 +216,59 @@
 }
 
 .home-cmd-hint:hover .arrow {
-  transform: translateX(3px);
+  transform: translateX(4px);
+}
+
+@keyframes arrow-pulse {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(5px); }
+}
+
+@media (max-width: 600px) {
+  .home-cmd-hint .arrow {
+    animation: arrow-pulse 1.6s ease-in-out infinite;
+  }
 }
 
 @media (max-width: 900px) {
   .home-content {
     margin-left: 0;
+    padding: 0;
+  }
+  .home-hero {
     padding: 0 1.5rem;
   }
 }
 
 @media (max-width: 600px) {
-  /* Nav — less padding so W and links don't crowd */
-  nav {
-    padding: 1rem 1.25rem;
+  footer {
+    padding: 0.75rem 1.5rem;
+    gap: 1.25rem;
   }
+  .footer-link { font-size: 0.72rem; }
+
+  nav {
+    padding: 1rem 1.5rem;
+    grid-template-columns: 1.5fr auto 1.5fr;
+  }
+
+  /* Shrink nav links to give W and ··· more room */
+  #nav-list { justify-content: center; }
+  #nav-list li a {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.35rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Hide desktop nav-right, show mobile toggle instead */
+  .nav-right { display: none !important; }
+  #nav-mobile-toggle { display: flex !important; justify-self: end; }
 
   /* Hide ⌘K keys on mobile */
   .home-cmd-keys { display: none !important; }
 
   /* Command palette — proper side margins */
-  #cmd-overlay {
-    padding: 12vh 1rem 0;
-  }
+  #cmd-overlay { padding: 10vh 1rem 0; }
 }
 
 html {
