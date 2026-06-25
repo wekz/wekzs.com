@@ -182,6 +182,11 @@
   background: var(--bg-subtle);
 }
 
+.home-cmd-keys {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
 .home-cmd-hint kbd {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -218,9 +223,8 @@
     padding: 1rem 1.25rem;
   }
 
-  /* Hide ⌘K keys on mobile, show tap text instead */
-  .home-cmd-hint .home-cmd-keys { display: none; }
-  .home-cmd-tap { display: inline; }
+  /* Hide ⌘K keys on mobile */
+  .home-cmd-keys { display: none !important; }
 
   /* Command palette — proper side margins */
   #cmd-overlay {
