@@ -130,6 +130,11 @@
 
     list.innerHTML = html;
 
+    // Sliding highlight element — sits behind items, transitions smoothly
+    const hl = document.createElement('div');
+    hl.id = 'cmd-highlight';
+    list.prepend(hl);
+
     list.querySelectorAll<HTMLElement>('.cmd-item').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.dataset.index ?? '0');
@@ -139,6 +144,21 @@
         const idx = parseInt(btn.dataset.index ?? '0');
         setActive(idx);
       });
+      btn.addEventListener('focus', () => {
+        const idx = parseInt(btn.dataset.index ?? '0');
+        setActive(idx);
+      });
+    });
+
+    // Position highlight on first item without transition (snap, not slide)
+    requestAnimationFrame(() => {
+      const first = list.querySelector<HTMLElement>('.cmd-item.active');
+      if (first) {
+        hl.style.transition = 'none';
+        hl.style.transform = `translateY(${first.offsetTop}px)`;
+        hl.style.height = `${first.offsetHeight}px`;
+        requestAnimationFrame(() => { hl.style.transition = ''; });
+      }
     });
   }
 
@@ -154,17 +174,28 @@
 
   function setActive(index: number) {
     activeIndex = index;
-    getList()?.querySelectorAll<HTMLElement>('.cmd-item').forEach(btn => {
+    const list = getList();
+    if (!list) return;
+    list.querySelectorAll<HTMLElement>('.cmd-item').forEach(btn => {
       const idx = parseInt(btn.dataset.index ?? '-1');
       btn.classList.toggle('active', idx === activeIndex);
     });
+    // Slide the highlight to the newly active item
+    const activeBtn = list.querySelector<HTMLElement>('.cmd-item.active');
+    const hl = list.querySelector<HTMLElement>('#cmd-highlight');
+    if (activeBtn && hl) {
+      hl.style.transform = `translateY(${activeBtn.offsetTop}px)`;
+      hl.style.height = `${activeBtn.offsetHeight}px`;
+    }
   }
 
   function move(dir: 1 | -1) {
     const filtered = getFiltered(getInput().value);
     const next = Math.max(0, Math.min(activeIndex + dir, filtered.length - 1));
     setActive(next);
-    getList()?.querySelector('.cmd-item.active')?.scrollIntoView({ block: 'nearest' });
+    const activeBtn = getList()?.querySelector<HTMLElement>('.cmd-item.active');
+    activeBtn?.focus();
+    activeBtn?.scrollIntoView({ block: 'nearest' });
   }
 
   function executeActive() {
@@ -212,8 +243,8 @@
 
     if (isOpen) {
       if (e.key === 'Escape')    { close(); return; }
-      if (e.key === 'ArrowDown') { e.preventDefault(); move(1); return; }
-      if (e.key === 'ArrowUp')   { e.preventDefault(); move(-1); return; }
+      if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey)) { e.preventDefault(); move(1); return; }
+      if (e.key === 'ArrowUp'   || (e.key === 'Tab' && e.shiftKey))  { e.preventDefault(); move(-1); return; }
       if (e.key === 'Enter')     { e.preventDefault(); executeActive(); return; }
       return;
     }

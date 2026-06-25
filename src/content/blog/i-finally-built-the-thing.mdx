@@ -1,0 +1,52 @@
+---
+title: "I finally built the thing"
+description: "Seven years writing test plans, zero years having a personal site. That math stopped making sense."
+pubDate: 2026-06-25
+tags: ["meta", "astro", "building", "claude-code"]
+---
+
+Seven years in QA. Countless test plans, bug reports, automation frameworks. And not a single personal website to my name.
+
+The irony of a guy who professionally finds everything wrong with software not being able to ship his own site was not lost on me.
+
+## How it started
+
+It started the way most things start. You look at what someone else built and think, I want that. I landed on zenorocha.com one afternoon and just sat there. Clean, fast, minimal. A command palette. Dark mode done properly. I closed the tab, opened it again, and decided that was enough inspiration to actually begin.
+
+I had tried before. There was a Figma file from 2023 with a design I never touched again. A half-finished WordPress install from before that. A "coming soon" page that came, but nothing followed.
+
+This time felt different mostly because I picked a stack and committed to it instead of spending three weeks comparing frameworks.
+
+## The stack
+
+Astro. I had never used it before but the pitch was simple: ship HTML, add JavaScript only where you need it. For a portfolio site that's mostly text and a couple of interactive bits, that made more sense than reaching for Next.js.
+
+MDX for blog posts. TypeScript because it catches the obvious stuff before you do. Vercel for hosting because the deploy just works.
+
+No component library. No CSS framework. All styles hand-written in one big `global.css` that I am mildly proud of and somewhat afraid of.
+
+## The things that took longer than expected
+
+The command palette. I built the whole thing from scratch, no library, and it took an embarrassing amount of time. Keyboard shortcuts, fuzzy search, animated icons, the frosted glass effect. At some point I had to tell myself it was good enough and stop.
+
+The training chart. I track my workouts in Hevy and wanted to show monthly volume on the About page. Fetching from an API at build time, caching to disk, parallel requests, Catmull-Rom smoothing on an SVG. For a chart that shows whether I went to the gym. Completely reasonable.
+
+Mobile. Always mobile. You think you're done, you open Safari on your phone, and something is slightly off. Repeat.
+
+## A note on how I actually built it
+
+I should be honest about the process. I built most of this with Claude Code, pairing with it the whole way. And I have to say it genuinely felt like an absurdly powerful tool.
+
+I'd describe what I wanted, watch it scaffold the thing, then poke at it, break it, ask for changes, and iterate. The loop was fast in a way I had not experienced before. The command palette, the training chart, the OG image setup, the mobile fixes that never end. We went back and forth on all of it until it felt right.
+
+It does not replace knowing what you want. If anything it makes that the bottleneck. But as someone who spends his days testing software, watching a tool reason about code, fix its own mistakes, and explain why something broke was a little surreal. Highly recommend.
+
+## Why bother
+
+Honestly, I'm not entirely sure yet. Part of it is that I wanted a place that was mine. LinkedIn is fine but it's not mine. GitHub is code but it's not voice. This is somewhere in between.
+
+Part of it is also that I spend a lot of time thinking about testing, code quality, and how software gets built, and I'd rather have somewhere to put those thoughts than just let them disappear.
+
+And part of it is that after seven years of breaking other people's software, it felt like time to ship something of my own without filing a bug against it immediately.
+
+(I filed two bugs against it. Both fixed.)
