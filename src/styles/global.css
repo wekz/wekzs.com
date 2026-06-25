@@ -864,7 +864,8 @@ img {
   border-radius: 8px;
   pointer-events: none;
   z-index: 0;
-  transition: transform 0.16s cubic-bezier(0.4, 0, 0.2, 1), height 0.16s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ease-out (fast start) so keypresses feel instant, not hesitant */
+  transition: transform 0.13s cubic-bezier(0.33, 1, 0.68, 1), height 0.13s cubic-bezier(0.33, 1, 0.68, 1);
 }
 [data-theme="light"] #cmd-highlight { background: rgba(0, 0, 0, 0.06); }
 #cmd-list .cmd-item {

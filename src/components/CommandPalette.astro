@@ -53,12 +53,18 @@
 
   let activeIndex = 0;
   let isOpen = false;
+  // True while navigating by keyboard — used to ignore phantom hover events
+  // fired when the list scrolls under a stationary mouse cursor.
+  let keyboardNav = false;
+  // Last real cursor position, to tell genuine mouse moves from scroll-emitted ones
+  let lastMouseX = -1, lastMouseY = -1;
 
   function open() {
     const overlay = getOverlay();
     const input = getInput();
     if (!overlay || !input) return;
     isOpen = true;
+    keyboardNav = false;
     overlay.setAttribute('aria-hidden', 'false');
     overlay.classList.add('visible');
     input.value = '';
@@ -141,13 +147,22 @@
         filtered[idx]?.action();
       });
       btn.addEventListener('mouseenter', () => {
+        // Ignore hover triggered by the list scrolling under a still cursor
+        // during keyboard navigation — only real mouse moves should select.
+        if (keyboardNav) return;
         const idx = parseInt(btn.dataset.index ?? '0');
         setActive(idx);
       });
-      btn.addEventListener('focus', () => {
-        const idx = parseInt(btn.dataset.index ?? '0');
-        setActive(idx);
-      });
+    });
+
+    // Re-enable hover selection only on a GENUINE pointer move. Scrolling the
+    // list under a still cursor can emit mousemove with unchanged coords in
+    // some browsers — ignore those so keyboard nav isn't hijacked mid-scroll.
+    list.addEventListener('mousemove', (e) => {
+      if (e.clientX === lastMouseX && e.clientY === lastMouseY) return;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      keyboardNav = false;
     });
 
     // Position highlight on first item without transition (snap, not slide)
@@ -172,7 +187,7 @@
     `;
   }
 
-  function setActive(index: number) {
+  function setActive(index: number, instant = false) {
     activeIndex = index;
     const list = getList();
     if (!list) return;
@@ -180,22 +195,58 @@
       const idx = parseInt(btn.dataset.index ?? '-1');
       btn.classList.toggle('active', idx === activeIndex);
     });
-    // Slide the highlight to the newly active item
+    // Move the highlight to the active item. It slides smoothly only for small
+    // in-view keyboard moves; hover and scrolling moves snap instantly so the
+    // highlight never trails the cursor or fights the scroll.
     const activeBtn = list.querySelector<HTMLElement>('.cmd-item.active');
     const hl = list.querySelector<HTMLElement>('#cmd-highlight');
     if (activeBtn && hl) {
+      hl.style.transition = (instant || !keyboardNav) ? 'none' : '';
       hl.style.transform = `translateY(${activeBtn.offsetTop}px)`;
       hl.style.height = `${activeBtn.offsetHeight}px`;
     }
   }
 
+  // Animate the list's scrollTop with the SAME duration/easing as the highlight
+  // CSS slide. Because both use easeOutCubic over the same time, the highlight
+  // glides smoothly in viewport space even while the list scrolls.
+  const SLIDE_MS = 130;
+  let scrollRAF = 0;
+  function animateScroll(el: HTMLElement, to: number) {
+    cancelAnimationFrame(scrollRAF);
+    const start = el.scrollTop;
+    const delta = to - start;
+    if (delta === 0) return;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min(1, (now - t0) / SLIDE_MS);
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic, matches the CSS curve
+      el.scrollTop = start + delta * eased;
+      if (p < 1) scrollRAF = requestAnimationFrame(step);
+    };
+    scrollRAF = requestAnimationFrame(step);
+  }
+
   function move(dir: 1 | -1) {
+    // Entering keyboard mode: suppress hover-select until the mouse really moves
+    keyboardNav = true;
+    const list = getList();
     const filtered = getFiltered(getInput().value);
     const next = Math.max(0, Math.min(activeIndex + dir, filtered.length - 1));
+    const btn = list?.querySelector<HTMLElement>(`.cmd-item[data-index="${next}"]`);
+    if (!list || !btn) { setActive(next); return; }
+
+    // Always slide the highlight smoothly. Focus stays on the input so typing keeps working.
     setActive(next);
-    const activeBtn = getList()?.querySelector<HTMLElement>('.cmd-item.active');
-    activeBtn?.focus();
-    activeBtn?.scrollIntoView({ block: 'nearest' });
+
+    // If the row is off-screen, scroll it into view in sync with the slide.
+    const top = btn.offsetTop;
+    const bottom = top + btn.offsetHeight;
+    if (top < list.scrollTop) {
+      animateScroll(list, top);
+    } else if (bottom > list.scrollTop + list.clientHeight) {
+      animateScroll(list, bottom - list.clientHeight);
+    }
   }
 
   function executeActive() {
