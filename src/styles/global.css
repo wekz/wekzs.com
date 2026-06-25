@@ -212,6 +212,22 @@
   }
 }
 
+@media (max-width: 600px) {
+  /* Nav — less padding so W and links don't crowd */
+  nav {
+    padding: 1rem 1.25rem;
+  }
+
+  /* Hide ⌘K keys on mobile, show tap text instead */
+  .home-cmd-hint .home-cmd-keys { display: none; }
+  .home-cmd-tap { display: inline; }
+
+  /* Command palette — proper side margins */
+  #cmd-overlay {
+    padding: 12vh 1rem 0;
+  }
+}
+
 html {
   background-color: var(--bg);
   color: var(--text);
