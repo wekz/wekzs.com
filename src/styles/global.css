@@ -187,6 +187,11 @@
   align-items: center;
   gap: 0.45rem;
 }
+/* OS-specific mod key: ⌘ by default (Mac), Ctrl when <html> has .os-other.
+   Set by the inline head script before paint, so there is no flash. */
+.cmd-mod-key .mod-other { display: none; }
+html.os-other .cmd-mod-key .mod-mac { display: none; }
+html.os-other .cmd-mod-key .mod-other { display: inline; }
 .home-cmd-hint kbd {
   font-family: var(--font-sans);
   font-size: 0.75rem;

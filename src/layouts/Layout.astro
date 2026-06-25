@@ -45,16 +45,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <ClientRouter />
-    <!-- is:inline = runs before first paint, prevents flash of wrong theme -->
+    <!-- is:inline = runs before first paint, prevents flash of wrong theme/key -->
     <script is:inline>
-      const applyTheme = () => {
+      const applyEarly = () => {
+        // Theme: avoid a flash of the wrong color scheme
         const t = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', t);
+        // OS: tag <html> so CSS can show ⌘ on Mac and Ctrl elsewhere with no flash
+        const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform) ||
+                      navigator.userAgentData?.platform === 'macOS';
+        document.documentElement.classList.toggle('os-other', !isMac);
       };
-      applyTheme();
-      // astro:after-swap fires after each View Transition — re-apply theme
-      // because the new page's <html> element replaces the old one
-      document.addEventListener('astro:after-swap', applyTheme);
+      applyEarly();
+      // astro:after-swap fires after each View Transition — re-apply because the
+      // page's <html> attributes/classes are reset during the swap
+      document.addEventListener('astro:after-swap', applyEarly);
     </script>
   </head>
   <body>

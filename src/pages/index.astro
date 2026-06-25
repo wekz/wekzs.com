@@ -9,24 +9,19 @@ import Layout from '@/layouts/Layout.astro';
       <p class="home-role">QA Engineer at <a href="/work" class="home-role-link">ecd.rs</a></p>
       <p class="home-desc">Obsessed with how things work and why they break.</p>
       <button class="home-cmd-hint" id="open-cmd" aria-label="Open command palette">
-        Press <span class="home-cmd-keys"><kbd id="cmd-mod-key">⌘</kbd><kbd>K</kbd></span><span class="home-cmd-tap" style="display:none"> </span>to start <span class="arrow">→</span>
+        Press <span class="home-cmd-keys"><kbd class="cmd-mod-key"><span class="mod-mac">⌘</span><span class="mod-other">Ctrl</span></kbd><kbd>K</kbd></span><span class="home-cmd-tap" style="display:none"> </span>to start <span class="arrow">→</span>
       </button>
     </div>
   </section>
 </Layout>
 
 <script>
+  // OS-specific key label (⌘ vs Ctrl) is handled by the inline head script +
+  // CSS to avoid a flash; here we only wire up the click.
   document.addEventListener('astro:page-load', () => {
     document.getElementById('open-cmd')?.addEventListener('click', () => {
       document.dispatchEvent(new CustomEvent('open-command-palette'));
     });
-
-    const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform) ||
-                  (navigator as any).userAgentData?.platform === 'macOS';
-    if (!isMac) {
-      const modKey = document.getElementById('cmd-mod-key');
-      if (modKey) modKey.textContent = 'Ctrl';
-    }
   });
 </script>
 
