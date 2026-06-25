@@ -5,7 +5,7 @@ export const SITE = {
   role:        'QA Automation Engineer',
   domain:      'wekzs.com',
   email:       'hello@wekzs.com',
-  description: 'QA Automation Engineer — wekzs.com',
+  description: 'QA Engineer based in Belgrade. Obsessed with how things work and why they break.',
 
   // Social links
   github:      'https://github.com/veljavex',
