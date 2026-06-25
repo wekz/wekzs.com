@@ -411,6 +411,8 @@ img {
   margin-bottom: 3.5rem;
 }
 .page-about .about-photo {
+  -webkit-user-drag: none;
+  user-select: none;
   width: 300px;
   height: 300px;
   object-fit: cover;
