@@ -256,14 +256,18 @@
   /* Shrink nav links to give W and ··· more room */
   #nav-list { justify-content: center; }
   #nav-list li a {
-    font-size: 0.65rem;
+    font-size: 0.72rem;
     padding: 0.3rem 0.35rem;
     letter-spacing: 0.02em;
   }
 
   /* Hide desktop nav-right, show mobile toggle instead */
   .nav-right { display: none !important; }
-  #nav-mobile-toggle { display: flex !important; justify-self: end; }
+  #nav-mobile-wrap { display: block !important; }
+  #nav-mobile-toggle { display: flex !important; }
+
+  /* CV header — stack vertically on mobile */
+  .page-cv .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
 
   /* Hide ⌘K keys on mobile */
   .home-cmd-keys { display: none !important; }

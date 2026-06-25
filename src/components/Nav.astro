@@ -36,13 +36,15 @@ const current = Astro.url.pathname;
   </div>
 
   <!-- Mobile only: dots button + dropdown -->
-  <button id="nav-mobile-toggle" aria-label="Menu">···</button>
-  <div id="nav-mobile-dropdown">
+  <div id="nav-mobile-wrap">
+    <button id="nav-mobile-toggle" aria-label="Menu">···</button>
+    <div id="nav-mobile-dropdown">
     <button id="theme-toggle-mobile" aria-label="Toggle theme">
       <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
     </button>
     <button id="cmd-trigger-mobile" aria-label="Open command palette">⌘</button>
+    </div>
   </div>
 </nav>
 
@@ -236,11 +238,18 @@ const current = Astro.url.pathname;
   }
   #nav-mobile-toggle:hover { color: var(--accent); }
 
+  #nav-mobile-wrap {
+    display: none; /* shown via media query */
+    position: relative;
+    justify-self: end;
+  }
+
   #nav-mobile-dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 4px);
-    right: 1.25rem;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--bg-subtle);
     border: 1px solid var(--border);
     border-radius: 8px;
