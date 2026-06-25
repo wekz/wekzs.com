@@ -63,7 +63,10 @@
     overlay.classList.add('visible');
     input.value = '';
     renderList('');
-    setTimeout(() => input.focus(), 30);
+    // Don't auto-focus on touch devices — it opens the keyboard
+    if (window.matchMedia('(hover: hover)').matches) {
+      setTimeout(() => input.focus(), 30);
+    }
   }
 
   function close() {

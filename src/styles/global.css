@@ -227,6 +227,7 @@
 @media (max-width: 600px) {
   .home-cmd-hint .arrow {
     animation: arrow-pulse 1.6s ease-in-out infinite;
+    font-size: 1.2rem;
   }
 }
 
