@@ -188,17 +188,26 @@
   gap: 0.45rem;
 }
 .home-cmd-hint kbd {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 700;
-  background: var(--text);
-  color: var(--bg);
-  border: none;
-  border-radius: 6px;
-  padding: 0.15rem 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  background: #3a3a3f;
+  color: #d0d0d5;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 0.3rem 0.65rem;
   line-height: 1.3;
-  min-width: 1.7em;
+  min-width: 2.2em;
   text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+[data-theme="light"] .home-cmd-hint kbd {
+  background: #e0e0e5;
+  color: #333;
+  border-color: rgba(0, 0, 0, 0.18);
+  border-bottom-color: rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .home-cmd-hint .arrow {
