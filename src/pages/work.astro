@@ -61,10 +61,10 @@ const experience = [
     </p>
 
     <ul class="timeline">
-      {experience.map(job => (
+      {experience.map((job, i) => (
         <li>
           <div class="meta">
-            <span class="period">{job.period}</span>
+            <span class={`period${i === 0 ? ' current' : ''}`}>{job.period}</span>
           </div>
           <div class="content">
             <div class="header">

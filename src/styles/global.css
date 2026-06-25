@@ -575,7 +575,26 @@ img {
 .page-work .company a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .page-work p { font-size: var(--text-size); color: var(--text-muted); line-height: 1.7; margin-bottom: 0.75rem; }
 .page-work .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.page-work .tag { font-size: 0.72rem; color: var(--text-faint); border: 1px solid var(--border); padding: 0.1rem 0.45rem; border-radius: 3px; font-family: var(--font-mono); }
+.page-work .tag {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  transition: color 0.2s, border-color 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.page-work .tag:hover {
+  color: var(--accent-purple);
+  border-color: var(--accent-purple);
+}
+
+/* Period hover colors — green = still here, yellow = was here */
+.page-work .period { transition: color 0.2s; cursor: default; }
+.page-work .period.current:hover { color: var(--dracula-green); }
+.page-work .period:not(.current):hover { color: var(--dracula-orange); }
 @media (max-width: 480px) {
   .page-work li { grid-template-columns: 1fr; gap: 0.5rem; }
 }
