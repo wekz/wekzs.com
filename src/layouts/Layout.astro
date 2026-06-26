@@ -75,6 +75,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </main>
     <Footer />
     <script>import { inject } from '@vercel/analytics'; inject();</script>
+    <script>
+      // Haptic feedback on page navigation for Android (iOS ignores this).
+      document.addEventListener('astro:before-preparation', () => {
+        navigator.vibrate?.(8);
+      });
+    </script>
   </body>
 </html>
 
