@@ -249,12 +249,6 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
   }
 }
 
-@media (max-width: 600px) {
-  .home-hero {
-    align-items: flex-start;
-    padding: 2.5rem 1.5rem 0;
-  }
-}
 
 @media (max-width: 600px) {
   footer {
