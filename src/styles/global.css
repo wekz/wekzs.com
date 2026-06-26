@@ -250,6 +250,13 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
 }
 
 @media (max-width: 600px) {
+  .home-hero {
+    align-items: flex-start;
+    padding: 2.5rem 1.5rem 0;
+  }
+}
+
+@media (max-width: 600px) {
   footer {
     padding: 0.75rem 1.5rem;
     gap: 1.25rem;
@@ -261,15 +268,8 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
     grid-template-columns: 1.5fr auto 1.5fr;
   }
 
-  /* Shrink nav links to give W and ··· more room */
-  #nav-list { justify-content: center; }
-  #nav-list li a {
-    font-size: 0.72rem;
-    padding: 0.3rem 0.35rem;
-    letter-spacing: 0.02em;
-  }
-
-  /* Hide desktop nav-right, show mobile toggle instead */
+  /* On mobile: hide text links (they move into the dropdown), show ··· only */
+  #nav-list { display: none !important; }
   .nav-right { display: none !important; }
   #nav-mobile-wrap { display: block !important; }
   #nav-mobile-toggle { display: flex !important; }
