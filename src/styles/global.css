@@ -273,15 +273,6 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
   .nav-right { display: none !important; }
   #nav-mobile-wrap { display: block !important; }
   #nav-mobile-toggle { display: flex !important; }
-}
-
-/* Narrow Android viewports (< 375px) — shrink links to fit the 1.5fr grid */
-@media (max-width: 374px) {
-  #nav-list li a {
-    font-size: 0.62rem;
-    padding: 0.25rem 0.22rem;
-    letter-spacing: 0;
-  }
 
   /* CV header — stack vertically on mobile */
   .page-cv .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
@@ -291,6 +282,15 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
 
   /* Command palette — proper side margins */
   #cmd-overlay { padding: 10vh 1rem 0; }
+}
+
+/* Narrow Android viewports (< 375px) — shrink links to fit the 1.5fr grid */
+@media (max-width: 374px) {
+  #nav-list li a {
+    font-size: 0.62rem;
+    padding: 0.25rem 0.22rem;
+    letter-spacing: 0;
+  }
 }
 
 html {
