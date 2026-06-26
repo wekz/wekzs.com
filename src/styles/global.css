@@ -9,6 +9,7 @@
   padding: 0;
 }
 
+
 :root,
 [data-theme="dark"] {
   --bg: #08070b;
@@ -288,6 +289,10 @@ html {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* Always reserve scrollbar space. When the scrollbar disappears (scroll lock,
+     page swap), the layout doesn't reflow — which is what made the cursor flash
+     to the default arrow on click. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -391,15 +396,10 @@ img {
   mix-blend-mode: normal;
 }
 
-/* The transition overlay covers the viewport for a moment on click; force the
-   pointer cursor on it so there's no arrow flash while navigating from a link. */
-::view-transition,
-::view-transition-group(root),
-::view-transition-image-pair(root),
-::view-transition-old(root),
-::view-transition-new(root) {
-  cursor: pointer;
-}
+/* Nav: pointer cursor on every element and state so Chrome never flashes the
+   default arrow. Scoped styles inside Nav.astro can't cover :active or every
+   child reliably, so this lives in global.css with high specificity. */
+nav, nav *, nav *:active, nav *:focus { cursor: pointer !important; }
 
 /* ─────────────────────────────────────────────
    Page styles — namespaced & kept in global.css
@@ -814,10 +814,9 @@ img {
 .page-404 .error-cmd:hover { color: var(--text-muted); }
 
 /* ── Command palette (⌘K) — in global.css so view transitions never drop it ── */
-/* Lock background scroll while the palette is open; pad for the removed
-   scrollbar so page content doesn't shift (no-op on overlay scrollbars). */
+/* Lock background scroll while the palette is open. The reserved scrollbar
+   gutter (html { scrollbar-gutter: stable }) keeps the layout from shifting. */
 html.cmd-locked { overflow: hidden; }
-html.cmd-locked body { padding-right: var(--cmd-sbw, 0px); }
 
 #cmd-overlay {
 

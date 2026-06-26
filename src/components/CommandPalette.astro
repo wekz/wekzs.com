@@ -59,11 +59,9 @@
   // Last real cursor position, to tell genuine mouse moves from scroll-emitted ones
   let lastMouseX = -1, lastMouseY = -1;
 
-  // Lock background scroll while the palette is open. Compensate for the
-  // scrollbar width so the page content doesn't jump when it disappears.
+  // Lock background scroll while the palette is open. The page reserves its
+  // scrollbar gutter (scrollbar-gutter: stable) so nothing shifts when it locks.
   function lockScroll() {
-    const sbw = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty('--cmd-sbw', `${sbw}px`);
     document.documentElement.classList.add('cmd-locked');
   }
   function unlockScroll() {

@@ -12,7 +12,7 @@ const current = Astro.url.pathname;
 ---
 
 <nav>
-  <a href="/" class="logo" aria-label="Home">W</a>
+  <a href="/" class="logo" aria-label="Home" draggable="false">W</a>
 
   <ul id="nav-list">
     <span class="nav-highlight" aria-hidden="true"></span>
@@ -20,6 +20,7 @@ const current = Astro.url.pathname;
       <li>
         <a
           href={link.href}
+          draggable="false"
           class={current === link.href || current.startsWith(link.href) ? 'active' : ''}
         >
           {link.label}
@@ -83,19 +84,17 @@ const current = Astro.url.pathname;
     function moveHighlight(el: HTMLElement, animate = true) {
       if (!highlight) return;
       if (!animate) highlight.style.transition = 'none';
-      // Copy the anchor's exact box so the pill always overlays it precisely
       highlight.style.width = `${el.offsetWidth}px`;
       highlight.style.height = `${el.offsetHeight}px`;
       highlight.style.left = `${el.offsetLeft}px`;
       highlight.style.top = `${el.offsetTop}px`;
       highlight.style.opacity = '1';
       if (!animate) {
-        void highlight.offsetWidth; // commit position instantly
+        void highlight.offsetWidth;
         highlight.style.transition = '';
       }
     }
 
-    // Rest position = the active page's item, placed instantly (no slide-in)
     if (activeAnchor) moveHighlight(activeAnchor, false);
 
     anchors?.forEach(a => {
@@ -118,6 +117,10 @@ const current = Astro.url.pathname;
     cursor: pointer !important;
     user-select: none;
     -webkit-user-select: none;
+    /* Links are draggable by default; on mousedown Chrome starts drag-detection
+       and the cursor flashes to the default arrow for a frame. Disable dragging
+       so the pointer cursor stays steady on click. */
+    -webkit-user-drag: none;
   }
 
   nav {
@@ -182,6 +185,9 @@ const current = Astro.url.pathname;
   li a.active {
     color: var(--accent);
   }
+
+  /* Light mode: hover color reads thinner than on dark, so add a touch of weight */
+  :global([data-theme="light"]) li a:hover { font-weight: 600; }
 
   li a.active::after {
     content: '';
