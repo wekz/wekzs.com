@@ -40,17 +40,11 @@ const current = Astro.url.pathname;
   <div id="nav-mobile-wrap">
     <button id="nav-mobile-toggle" aria-label="Menu">···</button>
     <div id="nav-mobile-dropdown">
-      {links.map(link => (
-        <a href={link.href} class={`nav-mobile-link${current === link.href || current.startsWith(link.href) ? ' active' : ''}`}>
-          {link.label}
-        </a>
-      ))}
-      <div class="nav-mobile-divider"></div>
-      <button id="theme-toggle-mobile" aria-label="Toggle theme">
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-      </button>
-      <button id="cmd-trigger-mobile" aria-label="Open command palette">⌘</button>
+    <button id="theme-toggle-mobile" aria-label="Toggle theme">
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
+    <button id="cmd-trigger-mobile" aria-label="Open command palette">⌘</button>
     </div>
   </div>
 </nav>
@@ -270,27 +264,6 @@ const current = Astro.url.pathname;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
   #nav-mobile-dropdown.open { display: flex; }
-
-  .nav-mobile-link {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 0.3rem 0.5rem;
-    border-radius: 4px;
-    text-align: center;
-    transition: color 0.15s;
-    width: 100%;
-  }
-  .nav-mobile-link:hover,
-  .nav-mobile-link.active { color: var(--accent); }
-  .nav-mobile-divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-    margin: 0.15rem 0;
-  }
 
   #cmd-trigger-mobile {
     background: none;
