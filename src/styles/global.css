@@ -291,10 +291,6 @@ html {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  /* Always reserve scrollbar space. When the scrollbar disappears (scroll lock,
-     page swap), the layout doesn't reflow — which is what made the cursor flash
-     to the default arrow on click. */
-  scrollbar-gutter: stable;
 }
 
 body {
