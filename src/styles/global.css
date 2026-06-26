@@ -258,15 +258,16 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
   .footer-link { font-size: 0.72rem; }
 
   nav {
-    padding: 1rem 1.5rem;
-    grid-template-columns: 1.5fr auto 1.5fr;
+    padding: 0.875rem 1.25rem;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
   }
 
-  /* Shrink nav links to give W and ··· more room */
+  /* Links center themselves inside the 1fr column */
   #nav-list { justify-content: center; }
   #nav-list li a {
-    font-size: 0.72rem;
-    padding: 0.3rem 0.35rem;
+    font-size: 0.7rem;
+    padding: 0.28rem 0.3rem;
     letter-spacing: 0.02em;
   }
 
