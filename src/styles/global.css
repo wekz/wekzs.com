@@ -260,7 +260,10 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
   nav {
     padding: 1rem 1.5rem;
     grid-template-columns: 1.5fr auto 1.5fr;
+    align-items: center;
   }
+
+  #nav-mobile-toggle { font-size: 0.85rem; letter-spacing: 1px; }
 
   #nav-list { justify-content: center; }
   #nav-list li a {
