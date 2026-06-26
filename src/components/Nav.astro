@@ -50,6 +50,8 @@ const current = Astro.url.pathname;
 </nav>
 
 <script>
+  import { playSwitch } from '@/lib/sound';
+
   function initNav() {
     // Mobile dropdown toggle
     const toggle = document.getElementById('nav-mobile-toggle');
@@ -71,6 +73,7 @@ const current = Astro.url.pathname;
     themeMobile?.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme') ?? 'dark';
       const next = current === 'dark' ? 'light' : 'dark';
+      playSwitch(next === 'light');
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       dropdown?.classList.remove('open');
