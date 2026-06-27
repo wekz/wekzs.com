@@ -297,23 +297,45 @@
   padding: 0.5rem 0.85rem 0.5rem 0;
   border-radius: 8px;
   transition: background 0.15s;
+  /* Off until lit — stays dark while the badge types above it */
+  opacity: 0;
+  --flicker: var(--dracula-purple);
+}
+[data-theme="light"] .home-cmd-hint { --flicker: #7c3aed; }
+
+/* JS adds .lit once the badge finishes — flicks on like a light:
+   a few green buzzes with a soft glow, then holds its resting colour.
+   .shown is the no-animation version used on soft navigations back home. */
+.home-cmd-hint.shown { opacity: 1; }
+.home-cmd-hint.lit {
+  opacity: 1;
+  animation: cmd-flicker 1.3s linear;
+}
+
+@keyframes cmd-flicker {
+  0%   { opacity: 0;   color: var(--text); text-shadow: none; }
+  4%   { opacity: 1;   color: var(--flicker); text-shadow: 0 0 16px var(--flicker); }
+  6%   { opacity: 0.15; }
+  9%   { opacity: 1;   color: var(--flicker); text-shadow: 0 0 16px var(--flicker); }
+  11%  { opacity: 0.35; }
+  14%  { opacity: 1;   color: var(--flicker); text-shadow: 0 0 20px var(--flicker); }
+  17%  { opacity: 0.6; }
+  20%  { opacity: 1;   color: var(--flicker); text-shadow: 0 0 24px var(--flicker); }
+  45%  { color: var(--flicker); text-shadow: 0 0 12px var(--flicker); }
+  72%  { color: var(--text); text-shadow: none; }
+  100% { opacity: 1;   color: var(--text); text-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-cmd-hint { opacity: 1; animation: none; }
 }
 
 @media (hover: hover) {
   .home-cmd-hint:hover {
     background: var(--bg-subtle);
-    animation: dracula-cycle 6s linear infinite;
+    color: var(--dracula-purple);
   }
-}
-
-@keyframes dracula-cycle {
-  0%   { color: var(--dracula-green); }
-  17%  { color: var(--dracula-cyan); }
-  33%  { color: var(--dracula-pink); }
-  50%  { color: var(--dracula-purple); }
-  67%  { color: var(--dracula-orange); }
-  83%  { color: var(--dracula-red); }
-  100% { color: var(--dracula-green); }
+  [data-theme="light"] .home-cmd-hint:hover { color: #7c3aed; }
 }
 
 .home-cmd-keys {
@@ -862,6 +884,37 @@ nav a, nav button { cursor: pointer; }
 .page-work .period { transition: color 0.2s; cursor: default; }
 .page-work .period.current:hover { color: var(--dracula-green); }
 .page-work .period:not(.current):hover { color: var(--dracula-orange); }
+
+/* Neon-flicker on load: a second or so after the page settles, each date
+   buzzes in its hover colour (green = still here, orange = was here) like a
+   streetlight catching power, then fades back to its resting faint colour.
+   `backwards` fill mode so the animation never holds the colour — hover keeps
+   working once it finishes. Staggered down the timeline. */
+.page-work .period {
+  --flicker: var(--dracula-orange);
+  animation: period-flicker 1.4s linear 1.5s backwards;
+}
+.page-work .period.current { --flicker: var(--dracula-green); }
+.page-work li:nth-child(2) .period { animation-delay: 1.7s; }
+.page-work li:nth-child(3) .period { animation-delay: 1.9s; }
+.page-work li:nth-child(4) .period { animation-delay: 2.1s; }
+.page-work li:nth-child(5) .period { animation-delay: 2.3s; }
+.page-work li:nth-child(6) .period { animation-delay: 2.5s; }
+
+@keyframes period-flicker {
+  0%   { color: var(--text-faint); }
+  6%   { color: var(--flicker); }
+  7%   { color: var(--text-faint); }
+  12%  { color: var(--flicker); }
+  13%  { color: var(--text-faint); }
+  20%  { color: var(--flicker); }
+  60%  { color: var(--flicker); }
+  100% { color: var(--text-faint); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-work .period { animation: none; }
+}
 @media (max-width: 480px) {
   .page-work li { grid-template-columns: 1fr; gap: 0.5rem; }
 }

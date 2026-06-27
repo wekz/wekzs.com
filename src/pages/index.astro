@@ -17,7 +17,7 @@ const personSchema = {
   <section class="home-hero page-home">
     <div class="home-main">
       <div class="home-left">
-        <div class="home-badge" aria-label="// open to collaborate">
+        <div class="home-badge" aria-label="// open for contribution">
           <span class="home-badge-comment" data-text="//"></span><span class="home-badge-text" data-text="open_to_collaborate"></span>
         </div>
         <h1><span class="home-name-v">Veljko</span> <span class="home-name-a">Aleksić</span></h1>
@@ -57,7 +57,21 @@ const personSchema = {
     const badge = document.querySelector('.home-badge');
     const commentEl = badge?.querySelector('.home-badge-comment');
     const textEl = badge?.querySelector('.home-badge-text');
+    const cmdHint = document.querySelector('.home-cmd-hint');
     if (commentEl instanceof HTMLElement && textEl instanceof HTMLElement) {
+      // Run the intro only on a genuine document load — not on View Transition
+      // navigations. The flag lives on window: survives soft swaps, resets on a
+      // real hard reload (no storage = no caching).
+      const firstLoad = !(window as any).__homeIntroPlayed;
+      (window as any).__homeIntroPlayed = true;
+
+      if (!firstLoad) {
+        // Soft navigation back to home — show the finished state instantly.
+        commentEl.textContent = '//';
+        badge?.classList.add('is-typed');
+        textEl.textContent = ' open_for_contribution';
+        cmdHint?.classList.add('shown');
+      } else {
       commentEl.textContent = '';
       textEl.textContent = '';
       const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
@@ -76,17 +90,21 @@ const personSchema = {
         }
       };
 
+      // "Press to start" flicks on once the badge line is finished.
       (async () => {
         await wait(rnd(700, 1000));
         await typeStr(commentEl, '//');
         badge?.classList.add('is-typed');        // // settles to grey immediately
         await wait(rnd(150, 250));
-        await typeStr(textEl, ' open_for_talk'); // first instinct…
+        await typeStr(textEl, ' open_to_c');     // wrong word starting…
         await wait(rnd(650, 850));               // well, that too, but...
-        await deleteN(textEl, 8);                // erase "for_talk"
+        await deleteN(textEl, 4);                // erase "to_c" back to open_
         await wait(rnd(150, 250));
-        await typeStr(textEl, 'to_collaborate'); // -> open_to_collaborate
+        await typeStr(textEl, 'for_contribution'); // -> open_for_contribution
+        await wait(rnd(250, 400));               // beat, then hit the lights
+        cmdHint?.classList.add('lit');
       })();
+      }
     }
 
     const clockEl = document.getElementById('home-clock');
