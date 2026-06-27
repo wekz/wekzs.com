@@ -46,6 +46,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#08070b" />
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
     )}
@@ -56,6 +57,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         // Theme: avoid a flash of the wrong color scheme
         const t = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', t);
+        const tc = document.querySelector('meta[name="theme-color"]');
+        if (tc) tc.setAttribute('content', t === 'dark' ? '#08070b' : '#ffffff');
         // OS: tag <html> so CSS can show ⌘ on Mac and Ctrl elsewhere with no flash
         const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform) ||
                       navigator.userAgentData?.platform === 'macOS';

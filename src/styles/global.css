@@ -155,8 +155,10 @@
   transition: color 0.15s;
   cursor: default;
 }
-.home-badge:hover { color: var(--dracula-green); }
-[data-theme="light"] .home-badge:hover { color: #16a34a; }
+@media (hover: hover) {
+  .home-badge:hover { color: var(--dracula-green); }
+  [data-theme="light"] .home-badge:hover { color: #16a34a; }
+}
 
 .home-badge-dot {
   width: 9px;
@@ -186,10 +188,12 @@
   transition: color 0.2s;
   user-select: none;
 }
-.home-name-v:hover { color: var(--dracula-green); }
-.home-name-a:hover { color: var(--dracula-pink); }
-[data-theme="light"] .home-name-v:hover { color: #16a34a; }
-[data-theme="light"] .home-name-a:hover { color: #be185d; }
+@media (hover: hover) {
+  .home-name-v:hover { color: var(--dracula-green); }
+  .home-name-a:hover { color: var(--dracula-pink); }
+  [data-theme="light"] .home-name-v:hover { color: #16a34a; }
+  [data-theme="light"] .home-name-a:hover { color: #be185d; }
+}
 
 .home-role {
   font-size: 1rem;
@@ -198,8 +202,10 @@
   font-weight: 500;
   transition: color 0.15s;
 }
-.home-role:hover { color: var(--dracula-cyan); }
-[data-theme="light"] .home-role:hover { color: #0891b2; }
+@media (hover: hover) {
+  .home-role:hover { color: var(--dracula-cyan); }
+  [data-theme="light"] .home-role:hover { color: #0891b2; }
+}
 
 .home-desc {
   font-size: 0.95rem;
@@ -207,8 +213,10 @@
   margin-bottom: 1.75rem;
   transition: color 0.15s;
 }
-.home-desc:hover { color: var(--dracula-orange); }
-[data-theme="light"] .home-desc:hover { color: #c2410c; }
+@media (hover: hover) {
+  .home-desc:hover { color: var(--dracula-orange); }
+  [data-theme="light"] .home-desc:hover { color: #c2410c; }
+}
 
 .home-role-link {
   color: var(--accent);
@@ -248,13 +256,14 @@
 }
 
 .home-meta-item { cursor: default; }
-.home-meta-item:nth-child(1):hover .home-meta-value { color: var(--dracula-cyan); }
-.home-meta-item:nth-child(2):hover .home-meta-value { color: var(--dracula-green); }
-.home-meta-item:nth-child(3):hover .home-meta-value { color: var(--dracula-purple); }
-
-[data-theme="light"] .home-meta-item:nth-child(1):hover .home-meta-value { color: #0891b2; }
-[data-theme="light"] .home-meta-item:nth-child(2):hover .home-meta-value { color: #16a34a; }
-[data-theme="light"] .home-meta-item:nth-child(3):hover .home-meta-value { color: #7c3aed; }
+@media (hover: hover) {
+  .home-meta-item:nth-child(1):hover .home-meta-value { color: var(--dracula-cyan); }
+  .home-meta-item:nth-child(2):hover .home-meta-value { color: var(--dracula-green); }
+  .home-meta-item:nth-child(3):hover .home-meta-value { color: var(--dracula-purple); }
+  [data-theme="light"] .home-meta-item:nth-child(1):hover .home-meta-value { color: #0891b2; }
+  [data-theme="light"] .home-meta-item:nth-child(2):hover .home-meta-value { color: #16a34a; }
+  [data-theme="light"] .home-meta-item:nth-child(3):hover .home-meta-value { color: #7c3aed; }
+}
 
 .home-cmd-hint {
   display: inline-flex;
@@ -272,9 +281,11 @@
   transition: background 0.15s;
 }
 
-.home-cmd-hint:hover {
-  background: var(--bg-subtle);
-  animation: dracula-cycle 6s linear infinite;
+@media (hover: hover) {
+  .home-cmd-hint:hover {
+    background: var(--bg-subtle);
+    animation: dracula-cycle 6s linear infinite;
+  }
 }
 
 @keyframes dracula-cycle {
@@ -325,8 +336,8 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
   transition: transform 0.15s;
 }
 
-.home-cmd-hint:hover .arrow {
-  transform: translateX(4px);
+@media (hover: hover) {
+  .home-cmd-hint:hover .arrow { transform: translateX(4px); }
 }
 
 @keyframes arrow-pulse {
@@ -520,7 +531,7 @@ img {
 /* Nav: pointer cursor on every element and state so Chrome never flashes the
    default arrow. Scoped styles inside Nav.astro can't cover :active or every
    child reliably, so this lives in global.css with high specificity. */
-nav, nav *, nav *:active, nav *:focus { cursor: pointer !important; }
+nav a, nav button { cursor: pointer; }
 
 /* ─────────────────────────────────────────────
    Page styles — namespaced & kept in global.css
@@ -1170,15 +1181,16 @@ footer {
   text-decoration: none;
   transition: color 0.15s;
 }
-.footer-link[data-anim="shake"]:hover  { color: var(--dracula-purple); }
-.footer-link[data-anim="slide"]:hover  { color: var(--dracula-cyan); }
-.footer-link[data-anim="bounce"]:hover { color: var(--dracula-green); }
-.footer-link[data-anim="fly"]:hover    { color: var(--dracula-orange); }
-
-[data-theme="light"] .footer-link[data-anim="shake"]:hover  { color: #7c3aed; }
-[data-theme="light"] .footer-link[data-anim="slide"]:hover  { color: #0891b2; }
-[data-theme="light"] .footer-link[data-anim="bounce"]:hover { color: #16a34a; }
-[data-theme="light"] .footer-link[data-anim="fly"]:hover    { color: #c2410c; }
+@media (hover: hover) {
+  .footer-link[data-anim="shake"]:hover  { color: var(--dracula-purple); }
+  .footer-link[data-anim="slide"]:hover  { color: var(--dracula-cyan); }
+  .footer-link[data-anim="bounce"]:hover { color: var(--dracula-green); }
+  .footer-link[data-anim="fly"]:hover    { color: var(--dracula-orange); }
+  [data-theme="light"] .footer-link[data-anim="shake"]:hover  { color: #7c3aed; }
+  [data-theme="light"] .footer-link[data-anim="slide"]:hover  { color: #0891b2; }
+  [data-theme="light"] .footer-link[data-anim="bounce"]:hover { color: #16a34a; }
+  [data-theme="light"] .footer-link[data-anim="fly"]:hover    { color: #c2410c; }
+}
 .footer-icon {
   display: block;
   flex-shrink: 0;
