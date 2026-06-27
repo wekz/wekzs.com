@@ -334,9 +334,6 @@
   100% { opacity: 1;   color: var(--text); text-shadow: none; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .home-cmd-hint { opacity: 1; animation: none; }
-}
 
 @media (hover: hover) {
   .home-cmd-hint:hover {
@@ -920,9 +917,6 @@ nav a, nav button { cursor: pointer; }
   100% { color: var(--text-faint); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .page-work .period { animation: none; }
-}
 @media (max-width: 480px) {
   .page-work li { grid-template-columns: 1fr; gap: 0.5rem; }
 }
