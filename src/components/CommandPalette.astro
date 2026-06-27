@@ -115,10 +115,18 @@
     setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2000);
   }
 
+  // Toggle Theme only appears in the palette on mobile — on desktop the nav
+  // already has a dedicated theme button next to the search trigger.
+  function getCommands(): Command[] {
+    const isMobile = window.matchMedia('(max-width: 600px)').matches;
+    return isMobile ? commands : commands.filter(c => c.label !== 'Toggle Theme');
+  }
+
   function getFiltered(query: string): Command[] {
-    if (!query) return commands;
+    const all = getCommands();
+    if (!query) return all;
     const q = query.toLowerCase().replace(/\s+/g, '');
-    return commands.filter(c =>
+    return all.filter(c =>
       c.label.toLowerCase().replace(/\s+/g, '').includes(q) ||
       c.shortcut.join('').toLowerCase().includes(q)
     );
