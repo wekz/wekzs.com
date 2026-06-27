@@ -305,8 +305,9 @@
   padding: 0.5rem 0.85rem 0.5rem 0;
   border-radius: 8px;
   transition: background 0.15s;
-  /* Off until lit — stays dark while the badge types above it */
+  /* Off until lit — stays dark and non-clickable while the badge types above it */
   opacity: 0;
+  pointer-events: none;
   --flicker: var(--dracula-purple);
 }
 [data-theme="light"] .home-cmd-hint { --flicker: #7c3aed; }
@@ -314,11 +315,9 @@
 /* JS adds .lit once the badge finishes — flicks on like a light:
    a few green buzzes with a soft glow, then holds its resting colour.
    .shown is the no-animation version used on soft navigations back home. */
-.home-cmd-hint.shown { opacity: 1; }
-.home-cmd-hint.lit {
-  opacity: 1;
-  animation: cmd-flicker 1.3s linear;
-}
+.home-cmd-hint.shown,
+.home-cmd-hint.lit { opacity: 1; pointer-events: auto; }
+.home-cmd-hint.lit { animation: cmd-flicker 1.3s linear; }
 
 @keyframes cmd-flicker {
   0%   { opacity: 0;   color: var(--text); text-shadow: none; }
