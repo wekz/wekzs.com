@@ -263,8 +263,6 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
     align-items: center;
   }
 
-  #nav-mobile-toggle { font-size: 0.85rem; letter-spacing: 1px; }
-
   #nav-list { justify-content: center; }
   #nav-list li a {
     font-size: 0.72rem;
@@ -272,10 +270,9 @@ html.os-other .cmd-mod-key .mod-other { display: inline; }
     letter-spacing: 0.02em;
   }
 
-  /* Hide desktop nav-right, show mobile toggle instead */
+  /* Hide desktop nav-right, show mobile command icon instead */
   .nav-right { display: none !important; }
-  #nav-mobile-wrap { display: block !important; }
-  #nav-mobile-toggle { display: flex !important; }
+  #nav-mobile-cmd { display: flex !important; }
 
   /* CV header — stack vertically on mobile */
   .page-cv .header { flex-direction: column; align-items: flex-start; gap: 1rem; }

@@ -36,47 +36,17 @@ const current = Astro.url.pathname;
     </button>
   </div>
 
-  <!-- Mobile only: dots button + dropdown -->
-  <div id="nav-mobile-wrap">
-    <button id="nav-mobile-toggle" aria-label="Menu">···</button>
-    <div id="nav-mobile-dropdown">
-    <button id="theme-toggle-mobile" aria-label="Toggle theme">
-      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-    </button>
-    <button id="cmd-trigger-mobile" aria-label="Open command palette">⌘</button>
-    </div>
-  </div>
+  <!-- Mobile only: search icon opens the command palette (theme, search, nav all live there) -->
+  <button id="nav-mobile-cmd" aria-label="Open command palette">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+  </button>
 </nav>
 
 <script>
-  import { playSwitch } from '@/lib/sound';
-
   function initNav() {
-    // Mobile dropdown toggle
-    const toggle = document.getElementById('nav-mobile-toggle');
-    const dropdown = document.getElementById('nav-mobile-dropdown');
-    const triggerMobile = document.getElementById('cmd-trigger-mobile');
-    toggle?.addEventListener('click', () => dropdown?.classList.toggle('open'));
-    document.addEventListener('click', (e) => {
-      if (!toggle?.contains(e.target as Node) && !dropdown?.contains(e.target as Node)) {
-        dropdown?.classList.remove('open');
-      }
-    });
-    triggerMobile?.addEventListener('click', () => {
-      dropdown?.classList.remove('open');
+    // Mobile: single command icon opens the palette
+    document.getElementById('nav-mobile-cmd')?.addEventListener('click', () => {
       document.dispatchEvent(new CustomEvent('open-command-palette'));
-    });
-
-    // Mobile theme toggle
-    const themeMobile = document.getElementById('theme-toggle-mobile');
-    themeMobile?.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') ?? 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      playSwitch(next === 'light');
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      dropdown?.classList.remove('open');
     });
 
     const list = document.getElementById('nav-list');
@@ -227,73 +197,26 @@ const current = Astro.url.pathname;
     color: var(--accent);
   }
 
-  #nav-mobile-toggle {
-    display: none; /* hidden on desktop, shown via media query */
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    padding: 4px 6px;
-    letter-spacing: 2px;
-    line-height: 1;
-    transition: color 0.15s;
-  }
-  #nav-mobile-toggle:hover { color: var(--accent); }
-
-  #nav-mobile-wrap {
-    display: none; /* shown via media query */
-    position: relative;
-    justify-self: end;
-  }
-
-  #nav-mobile-dropdown {
+  /* Mobile command icon — hidden on desktop, shown via media query */
+  #nav-mobile-cmd {
     display: none;
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.5rem;
-    gap: 0.25rem;
-    flex-direction: column;
-    align-items: center;
-    z-index: 50;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  }
-  #nav-mobile-dropdown.open { display: flex; }
-
-  #cmd-trigger-mobile {
+    justify-self: end;
+    align-self: center;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.1rem;
     color: var(--text-muted);
-    padding: 4px 6px;
-    border-radius: 4px;
-    line-height: 1;
+    padding: 4px;
+    border-radius: 6px;
+    line-height: 0;
     transition: color 0.15s;
   }
-  #cmd-trigger-mobile:hover { color: var(--accent); }
-
-  #theme-toggle-mobile {
-    background: none; border: none; cursor: pointer;
-    color: var(--text-muted); padding: 4px;
-    display: flex; align-items: center; border-radius: 4px;
-    transition: color 0.15s;
-  }
-  #theme-toggle-mobile:hover { color: var(--accent); }
-  #theme-toggle-mobile .icon-sun { display: none; }
-  #theme-toggle-mobile .icon-moon { display: block; }
-  :global([data-theme="light"]) #theme-toggle-mobile .icon-sun { display: block; }
-  :global([data-theme="light"]) #theme-toggle-mobile .icon-moon { display: none; }
+  #nav-mobile-cmd:hover,
+  #nav-mobile-cmd:active { color: var(--accent); }
 
   @media (max-width: 600px) {
     nav { align-items: center; }
-    .logo { align-self: center; }
-    #nav-mobile-wrap { align-self: center; }
-    #nav-mobile-toggle { font-size: 0.85rem; letter-spacing: 1px; }
+    .logo { align-self: center; font-size: 1.45rem; }
+    #nav-mobile-cmd { display: flex !important; transform: translateY(-2px); }
   }
 </style>
