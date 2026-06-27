@@ -180,10 +180,6 @@
   50%       { opacity: 0; }
 }
 
-@media (hover: hover) {
-  .home-badge:hover { color: var(--dracula-green); }
-  [data-theme="light"] .home-badge:hover { color: #16a34a; }
-}
 
 
 .home-left h1 {
