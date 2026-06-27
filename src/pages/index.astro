@@ -17,8 +17,8 @@ const personSchema = {
   <section class="home-hero page-home">
     <div class="home-main">
       <div class="home-left">
-        <div class="home-badge">
-          <span class="home-badge-comment">//</span><span class="home-badge-text">open_to_collaborate</span>
+        <div class="home-badge" aria-label="// open to collaborate">
+          <span class="home-badge-comment" data-text="//"></span><span class="home-badge-text" data-text="open_to_collaborate"></span>
         </div>
         <h1><span class="home-name-v">Veljko</span> <span class="home-name-a">Aleksić</span></h1>
         <p class="home-role">QA Engineer at <a href="/work" class="home-role-link">ecd.rs</a></p>
@@ -50,6 +50,44 @@ const personSchema = {
     document.getElementById('open-cmd')?.addEventListener('click', () => {
       document.dispatchEvent(new CustomEvent('open-command-palette'));
     });
+
+    // Type out the badge like a real dev at a keyboard: type the // (purple),
+    // grey it out VS Code style, then fumble the word — typo, pause, backspace,
+    // retype — with an uneven human rhythm.
+    const badge = document.querySelector('.home-badge');
+    const commentEl = badge?.querySelector('.home-badge-comment');
+    const textEl = badge?.querySelector('.home-badge-text');
+    if (commentEl instanceof HTMLElement && textEl instanceof HTMLElement) {
+      commentEl.textContent = '';
+      textEl.textContent = '';
+      const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
+      const rnd = (min: number, max: number) => min + Math.random() * (max - min);
+
+      const typeStr = async (el: HTMLElement, str: string) => {
+        for (const ch of str) {
+          el.textContent += ch;
+          await wait(rnd(55, 130));
+        }
+      };
+      const deleteN = async (el: HTMLElement, n: number) => {
+        for (let i = 0; i < n; i++) {
+          el.textContent = (el.textContent || '').slice(0, -1);
+          await wait(rnd(40, 80));
+        }
+      };
+
+      (async () => {
+        await wait(rnd(700, 1000));
+        await typeStr(commentEl, '//');
+        badge?.classList.add('is-typed');        // // settles to grey immediately
+        await wait(rnd(150, 250));
+        await typeStr(textEl, ' open_for_talk'); // first instinct…
+        await wait(rnd(650, 850));               // well, that too, but...
+        await deleteN(textEl, 8);                // erase "for_talk"
+        await wait(rnd(150, 250));
+        await typeStr(textEl, 'to_collaborate'); // -> open_to_collaborate
+      })();
+    }
 
     const clockEl = document.getElementById('home-clock');
     if (clockEl) {

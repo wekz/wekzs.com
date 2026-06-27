@@ -146,7 +146,6 @@
 .home-badge {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -156,23 +155,34 @@
   cursor: default;
   user-select: none;
 }
+
+/* The blinking caret lives at the end of the line from the very start —
+   both spans begin empty, so it sits at the far left and rides right as
+   characters are typed in. */
+.home-badge::after {
+  content: '|';
+  color: var(--dracula-green);
+  margin-left: 0.1rem;
+  animation: term-blink 1s step-end infinite;
+}
+
 .home-badge-comment {
   font-family: var(--font-mono);
+  color: var(--dracula-purple);
+  transition: color 0.5s ease, opacity 0.5s ease;
+}
+[data-theme="light"] .home-badge-comment { color: #7c3aed; }
+
+/* Once the // is typed, it settles into a muted code comment, VS Code style */
+.home-badge.is-typed .home-badge-comment {
   color: var(--text-muted);
-  margin-right: 0.4rem;
   opacity: 0.5;
 }
 
 .home-badge-text {
   font-family: var(--font-mono);
   letter-spacing: 0.04em;
-}
-
-.home-badge-text::after {
-  content: '|';
-  color: var(--dracula-green);
-  margin-left: 0.1rem;
-  animation: term-blink 1s step-end infinite;
+  white-space: pre;
 }
 
 @keyframes term-blink {
