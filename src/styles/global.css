@@ -168,15 +168,23 @@
 
 .home-badge-comment {
   font-family: var(--font-mono);
-  color: var(--dracula-purple);
-  transition: color 0.5s ease, opacity 0.5s ease;
-}
-[data-theme="light"] .home-badge-comment { color: #7c3aed; }
-
-/* Once the // is typed, it settles into a muted code comment, VS Code style */
-.home-badge.is-typed .home-badge-comment {
+  /* Resting state is a muted grey comment — this is what shows on soft
+     navigations, so the // never flashes purple when switching sections. */
   color: var(--text-muted);
   opacity: 0.5;
+}
+
+/* While it's being typed (first load only), the // is live purple, snapped on */
+.home-badge.is-typing .home-badge-comment {
+  color: var(--dracula-purple);
+  opacity: 1;
+  transition: none;
+}
+[data-theme="light"] .home-badge.is-typing .home-badge-comment { color: #7c3aed; }
+
+/* Once typed, it settles from purple into the muted grey, VS Code style */
+.home-badge.is-typed .home-badge-comment {
+  transition: color 0.5s ease, opacity 0.5s ease;
 }
 
 .home-badge-text {

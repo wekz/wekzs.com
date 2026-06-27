@@ -66,9 +66,9 @@ const personSchema = {
       (window as any).__homeIntroPlayed = true;
 
       if (!firstLoad) {
-        // Soft navigation back to home — show the finished state instantly.
+        // Soft navigation back to home — show the finished state instantly,
+        // grey // with no purple flash (no is-typing/is-typed needed).
         commentEl.textContent = '//';
-        badge?.classList.add('is-typed');
         textEl.textContent = ' open_for_contribution';
         cmdHint?.classList.add('shown');
       } else {
@@ -93,8 +93,10 @@ const personSchema = {
       // "Press to start" flicks on once the badge line is finished.
       (async () => {
         await wait(rnd(700, 1000));
+        badge?.classList.add('is-typing');       // live purple while typing
         await typeStr(commentEl, '//');
-        badge?.classList.add('is-typed');        // // settles to grey immediately
+        badge?.classList.remove('is-typing');
+        badge?.classList.add('is-typed');        // settle purple -> grey
         await wait(rnd(150, 250));
         await typeStr(textEl, ' open_to_c');     // wrong word starting…
         await wait(rnd(650, 850));               // well, that too, but...
