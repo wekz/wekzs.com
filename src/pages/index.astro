@@ -2,7 +2,6 @@
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config/site';
 
-// Person structured data — helps search engines connect the name, role and profiles
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -16,24 +15,54 @@ const personSchema = {
 
 <Layout title="Veljko Aleksić" wide jsonLd={personSchema}>
   <section class="home-hero page-home">
-    <div class="home-content">
-      <h1>Veljko Aleksić</h1>
-      <p class="home-role">QA Engineer at <a href="/work" class="home-role-link">ecd.rs</a></p>
-      <p class="home-desc">Obsessed with how things work and why they break.</p>
-      <button class="home-cmd-hint" id="open-cmd" aria-label="Open command palette">
-        Press <span class="home-cmd-keys"><kbd class="cmd-mod-key"><span class="mod-mac">⌘</span><span class="mod-other">Ctrl</span></kbd><kbd>K</kbd></span> to start <span class="arrow">→</span>
-      </button>
+    <div class="home-main">
+      <div class="home-left">
+        <div class="home-badge">
+          <span class="home-badge-dot"></span>OPEN TO COLLABORATE
+        </div>
+        <h1><span class="home-name-v">Veljko</span> <span class="home-name-a">Aleksić</span></h1>
+        <p class="home-role">QA Engineer at <a href="/work" class="home-role-link">ecd.rs</a></p>
+        <p class="home-desc">Obsessed with how things work and why they break.</p>
+        <button class="home-cmd-hint" id="open-cmd" aria-label="Open command palette">
+          Press <span class="home-cmd-keys"><kbd class="cmd-mod-key"><span class="mod-mac">⌘</span><span class="mod-other">Ctrl</span></kbd><kbd>K</kbd></span> to start <span class="arrow">→</span>
+        </button>
+      </div>
+      <div class="home-right">
+        <div class="home-meta-item">
+          <span class="home-meta-label">LOCAL</span>
+          <span class="home-meta-value">Belgrade · <span id="home-clock"></span></span>
+        </div>
+        <div class="home-meta-item">
+          <span class="home-meta-label">FOCUS</span>
+          <span class="home-meta-value">Reliability · Quality / Security</span>
+        </div>
+        <div class="home-meta-item">
+          <span class="home-meta-label">SINCE</span>
+          <span class="home-meta-value">2018 · present</span>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
 
 <script>
-  // OS-specific key label (⌘ vs Ctrl) is handled by the inline head script +
-  // CSS to avoid a flash; here we only wire up the click.
   document.addEventListener('astro:page-load', () => {
     document.getElementById('open-cmd')?.addEventListener('click', () => {
       document.dispatchEvent(new CustomEvent('open-command-palette'));
     });
+
+    const clockEl = document.getElementById('home-clock');
+    if (clockEl) {
+      const fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Belgrade',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      });
+      const tick = () => { clockEl.textContent = fmt.format(new Date()); };
+      tick();
+      const now = new Date();
+      setTimeout(() => { tick(); setInterval(tick, 60000); }, (60 - now.getSeconds()) * 1000);
+    }
   });
 </script>
-
