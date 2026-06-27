@@ -31,8 +31,9 @@ const current = Astro.url.pathname;
 
   <div class="nav-right">
     <ThemeToggle />
-    <button id="cmd-trigger" aria-label="Open command palette" title="Open command palette (⌘K)">
-      ⌘
+    <button id="cmd-trigger" aria-label="Open command palette" title="Open command palette">
+      <span class="cmd-glyph">⌘</span>
+      <svg class="cmd-search" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
     </button>
   </div>
 
@@ -196,6 +197,11 @@ const current = Astro.url.pathname;
   #cmd-trigger:hover {
     color: var(--accent);
   }
+  /* ⌘ glyph on Mac, search icon on Windows/Linux (no Command key there).
+     os-other is set on <html> by the inline OS-detection script. */
+  #cmd-trigger .cmd-search { display: none; }
+  :global(html.os-other) #cmd-trigger .cmd-glyph { display: none; }
+  :global(html.os-other) #cmd-trigger .cmd-search { display: inline-flex; }
 
   /* Mobile command icon — hidden on desktop, shown via media query */
   #nav-mobile-cmd {
