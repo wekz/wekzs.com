@@ -155,24 +155,35 @@
   transition: color 0.15s;
   cursor: default;
 }
+.home-badge-comment {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  margin-right: 0.4rem;
+  opacity: 0.5;
+}
+
+.home-badge-text {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+.home-badge-text::after {
+  content: '|';
+  color: var(--dracula-green);
+  margin-left: 0.1rem;
+  animation: term-blink 1s step-end infinite;
+}
+
+@keyframes term-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
 @media (hover: hover) {
   .home-badge:hover { color: var(--dracula-green); }
   [data-theme="light"] .home-badge:hover { color: #16a34a; }
 }
 
-.home-badge-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--dracula-green);
-  flex-shrink: 0;
-  animation: home-pulse 2s ease-in-out infinite;
-}
-
-@keyframes home-pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.35; }
-}
 
 .home-left h1 {
   font-size: clamp(4rem, 11vw, 12rem);
