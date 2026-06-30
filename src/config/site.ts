@@ -4,7 +4,7 @@ export const SITE = {
   name:        'Veljko Aleksić',
   role:        'QA Automation Engineer',
   domain:      'wekzs.com',
-  email:       'hello@wekzs.com',
+  email:       'reach@wekzs.com',
   description: 'Obsessed with how things work and why they break.',
 
   // Social links

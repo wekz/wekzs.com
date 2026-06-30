@@ -626,6 +626,15 @@ nav a, nav button { cursor: pointer; }
 }
 
 /* View CV button — gradient border on hover, icon swap file→arrow */
+.page-about .bio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+.page-about .bio-header h2 {
+  margin: 0;
+}
 .page-about .bio-cv-btn {
   display: inline-flex;
   align-items: center;
@@ -633,25 +642,18 @@ nav a, nav button { cursor: pointer; }
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text);
   text-decoration: none;
   padding: 0.3rem 0.75rem;
   border-radius: 4px;
-  border: 1px solid transparent;
-  transition: color 0.2s;
-  background: linear-gradient(var(--bg), var(--bg)) padding-box,
-              linear-gradient(var(--border), var(--border)) border-box;
-  background-clip: padding-box, border-box;
+  border: 1px solid var(--text);
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .page-about .bio-cv-btn:hover {
-  color: var(--accent);
-  background: linear-gradient(var(--bg), var(--bg)) padding-box,
-              linear-gradient(90deg,
-                var(--dracula-pink), var(--dracula-purple),
-                var(--dracula-cyan), var(--dracula-green),
-                var(--dracula-pink)) border-box;
-  background-size: 100% 100%, 200% 100%;
-  animation: drac-flow 2.5s linear infinite;
+  background: var(--text);
+  color: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.12);
 }
 
 /* Icon swap: file fades out, arrow fades in */
