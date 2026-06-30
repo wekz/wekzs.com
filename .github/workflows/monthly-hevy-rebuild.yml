@@ -1,0 +1,11 @@
+name: Monthly Hevy rebuild
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}
