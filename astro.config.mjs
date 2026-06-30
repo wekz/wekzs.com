@@ -3,6 +3,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://wekzs-com.vercel.app',
+  site: 'https://wekzs.com',
   integrations: [mdx(), sitemap()],
 });
