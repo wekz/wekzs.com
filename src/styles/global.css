@@ -572,6 +572,21 @@ img {
   mix-blend-mode: normal;
 }
 
+/* The ::view-transition overlay covers the viewport during every swap and
+   hit-tests with the default arrow cursor, so each nav click flashes the
+   arrow. Let hit-testing pass through to the real DOM underneath. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* Per spec, while a view transition suppresses rendering ALL hit-testing
+   targets <html>, so the cursor falls back to the default arrow no matter
+   what the link under it says. Transitions only start from nav clicks, so
+   keep the pointer for the whole transition. */
+html:active-view-transition {
+  cursor: pointer;
+}
+
 /* Nav: pointer cursor on every element and state so Chrome never flashes the
    default arrow. Scoped styles inside Nav.astro can't cover :active or every
    child reliably, so this lives in global.css with high specificity. */
