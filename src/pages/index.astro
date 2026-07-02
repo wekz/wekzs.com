@@ -119,8 +119,16 @@ const personSchema = {
       });
       const tick = () => { clockEl.textContent = fmt.format(new Date()); };
       tick();
+      // Clear the previous visit's timers — every soft navigation back home
+      // re-runs this block, and stale intervals would pile up for the session.
+      const w = window as any;
+      clearTimeout(w.__clockTimeout);
+      clearInterval(w.__clockInterval);
       const now = new Date();
-      setTimeout(() => { tick(); setInterval(tick, 60000); }, (60 - now.getSeconds()) * 1000);
+      w.__clockTimeout = setTimeout(() => {
+        tick();
+        w.__clockInterval = setInterval(tick, 60000);
+      }, (60 - now.getSeconds()) * 1000);
     }
   });
 </script>

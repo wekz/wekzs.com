@@ -7,6 +7,15 @@ import Footer from '@/components/Footer.astro';
 import CommandPalette from '@/components/CommandPalette.astro';
 import { SITE } from '@/config/site';
 import '@/styles/global.css';
+// Preload the latin subsets used above the fold on every page — otherwise the
+// browser discovers fonts only after the CSS is fetched and parsed (HTML →
+// CSS → font chain), which shows fallback text on first visit.
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
+import inter500 from '@fontsource/inter/files/inter-latin-500-normal.woff2?url';
+import inter600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
+import inter700 from '@fontsource/inter/files/inter-latin-700-normal.woff2?url';
+import mono400 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2?url';
+const fonts = [inter400, inter500, inter600, inter700, mono400];
 
 interface Props {
   title: string;
@@ -44,6 +53,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL('/og.jpg', Astro.site)} />
     <title>{title}</title>
+    {fonts.map(href => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#08070b" />

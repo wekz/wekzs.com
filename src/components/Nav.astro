@@ -60,8 +60,8 @@ const current = Astro.url.pathname;
       if (!animate) highlight.style.transition = 'none';
       highlight.style.width = `${el.offsetWidth}px`;
       highlight.style.height = `${el.offsetHeight}px`;
-      highlight.style.left = `${el.offsetLeft}px`;
-      highlight.style.top = `${el.offsetTop}px`;
+      // transform, not left/top — compositor-only, no layout per frame
+      highlight.style.transform = `translate(${el.offsetLeft}px, ${el.offsetTop}px)`;
       highlight.style.opacity = '1';
       if (!animate) {
         void highlight.offsetWidth;
@@ -135,7 +135,7 @@ const current = Astro.url.pathname;
     border: 1px solid var(--border);
     box-sizing: border-box;
     opacity: 0;
-    transition: left 0.2s ease, width 0.2s ease, opacity 0.15s ease;
+    transition: transform 0.2s ease, width 0.2s ease, opacity 0.15s ease;
     pointer-events: none;
     cursor: pointer;
   }
